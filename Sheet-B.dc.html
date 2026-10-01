@@ -28,7 +28,9 @@ textarea,input{font-family:inherit}
 <div style="font-size: 18px; font-weight: 700">{{headTitle}}</div>
 <div style="font-size: 13px; color: #6c6f85">{{headSub}}</div>
 </div>
-<button aria-label="1 waiting to send" style="height: 36px; padding: 0 12px; border-radius: 18px; border: 1px solid #df8e1d; background: #fbeacf; color: #8b5a10; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M5 20h14"></path></svg>1</button>
+<button onClick="{{openDevice}}" aria-label="{{profileAria}}" style="width: 48px; height: 48px; flex-shrink: 0; border-radius: 24px; border: {{profileBorder}}; background: {{profileBg}}; color: {{profileFg}}; position: relative; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
+<sc-if value="{{hasWaiting}}" hint-placeholder-val="{{ true }}"><span style="position: absolute; top: 0; right: 0; min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box; border-radius: 10px; background: #8b5a10; color: #ffffff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #ffffff">{{waiting}}</span></sc-if>
+</button>
 </div>
 <sc-if value="{{onOverview}}" hint-placeholder-val="{{ true }}">
 <div style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 20px">
@@ -129,6 +131,47 @@ textarea,input{font-family:inherit}
 </div>
 </div>
 </sc-if>
+<sc-if value="{{showDevice}}" hint-placeholder-val="{{ false }}">
+<div onClick="{{closeDevice}}" style="position: absolute; inset: 0; z-index: 10; background: rgba(76,79,105,0.35)"></div>
+<div role="dialog" aria-label="Device and account" style="position: absolute; top: 0; right: 0; bottom: 0; width: 330px; z-index: 11; background: #ffffff; box-shadow: -8px 0 24px rgba(76,79,105,0.22); display: flex; flex-direction: column">
+<div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 8px 8px 16px; border-bottom: 1px solid rgba(76,79,105,0.12)">
+<div style="font-size: 20px; font-weight: 700">Device</div>
+<button onClick="{{closeDevice}}" aria-label="Close" style="width: 48px; height: 48px; border: none; background: transparent; color: #4c4f69; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg></button>
+</div>
+<div style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 700; color: #6c6f85; letter-spacing: 0.04em">SENDING TO THE OFFICE</div>
+<div style="border-radius: 12px; border: 1px solid {{statusBd}}; background: {{statusBg}}; color: {{statusFg}}; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 17px; font-weight: 700">{{statusText}}</div>
+<div style="font-size: 14px; line-height: 1.4">{{statusBody}}</div>
+<sc-if value="{{hasWaiting}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 10px 12px; border-radius: 8px; background: #ffffff; color: #4c4f69; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600">Defect on 2.3 · Dent on shell</div>
+<div style="font-size: 12px; color: #6c6f85">ME-ITR-A-02-T-9501 · raised just now</div>
+</div>
+<button onClick="{{syncNow}}" style="height: 52px; border-radius: 10px; border: none; background: #0f7a7f; color: #ffffff; font-size: 16px; font-weight: 700">Try sending now</button>
+</sc-if>
+</div>
+<button onClick="{{toggleCellular}}" role="switch" aria-checked="{{cellular}}" style="min-height: 60px; border-radius: 12px; border: 1px solid rgba(76,79,105,0.18); background: #ffffff; color: #4c4f69; display: flex; align-items: center; gap: 12px; padding: 0 14px; text-align: left">
+<span style="display: flex; flex-direction: column; gap: 3px; flex-grow: 1"><span style="font-size: 15px; font-weight: 600">Send photos on mobile data</span><span style="font-size: 13px; color: #6c6f85">{{cellularSub}}</span></span>
+<span style="width: 48px; height: 28px; border-radius: 14px; background: {{trackBg}}; position: relative; flex-shrink: 0"><span style="position: absolute; top: 3px; left: {{knobLeft}}; width: 22px; height: 22px; border-radius: 11px; background: #ffffff; box-shadow: 0 1px 3px rgba(76,79,105,0.35)"></span></span>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 700; color: #6c6f85; letter-spacing: 0.04em">PROJECT</div>
+<div style="min-height: 60px; box-sizing: border-box; border-radius: 12px; border: 1px solid rgba(76,79,105,0.18); display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 8px 14px"><span style="font-size: 16px; font-weight: 600">Automation</span><span style="font-size: 13px; color: #6c6f85">Change it from the Sheets list</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 700; color: #6c6f85; letter-spacing: 0.04em">ACCOUNT</div>
+<div style="border-radius: 12px; border: 1px solid rgba(76,79,105,0.18); padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 3px"><div style="font-size: 13px; color: #6c6f85">Signed in as</div><div style="font-size: 16px; font-weight: 600">[technician email]</div></div>
+<div style="display: flex; flex-direction: column; gap: 3px"><div style="font-size: 13px; color: #6c6f85">Tenant</div><div style="font-size: 16px; font-weight: 600">staging</div></div>
+<button style="height: 52px; border-radius: 10px; border: 1px solid rgba(76,79,105,0.28); background: #ffffff; color: #4c4f69; font-size: 15px; font-weight: 600">Sign out</button>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
 <sc-if value="{{showComposer}}" hint-placeholder-val="{{ false }}">
 <div onClick="{{closeComposer}}" style="position: absolute; inset: 0; background: rgba(76,79,105,0.35)"></div>
 <div role="dialog" aria-label="Raise a defect" style="position: absolute; left: 0; right: 0; bottom: 0; background: #ffffff; border-radius: 16px 16px 0 0; padding: 10px 16px 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 -8px 24px rgba(76,79,105,0.18)">
@@ -202,7 +245,10 @@ class Component extends DCLogic {
       composer: null,
       draft: '',
       sheetPhotos: 1,
-      submitted: false
+      submitted: false,
+      device: false,
+      waiting: 1,
+      cellular: false
     };
   }
 
@@ -273,6 +319,26 @@ class Component extends DCLogic {
     return {
       onOverview: st.screen === 'overview',
       notOverview: st.screen !== 'overview',
+      waiting: st.waiting,
+      hasWaiting: st.waiting > 0,
+      profileAria: st.waiting > 0 ? 'Device and account, ' + st.waiting + ' waiting to send' : 'Device and account, everything sent',
+      profileBg: st.waiting > 0 ? '#fbeacf' : 'transparent',
+      profileFg: st.waiting > 0 ? '#8b5a10' : '#4c4f69',
+      profileBorder: st.waiting > 0 ? '1px solid #df8e1d' : 'none',
+      statusText: st.waiting > 0 ? st.waiting + ' waiting to send' : 'Everything is with the office',
+      statusBody: st.waiting > 0 ? 'Kept safe on this handset. It sends by itself when a link appears.' : 'Nothing is waiting on this handset.',
+      statusBg: st.waiting > 0 ? '#fbeacf' : '#d5edee',
+      statusBd: st.waiting > 0 ? '#df8e1d' : '#0f7a7f',
+      statusFg: st.waiting > 0 ? '#8b5a10' : '#0b5f63',
+      syncNow: function () { self.setState({ waiting: 0 }); },
+      cellular: st.cellular,
+      cellularSub: st.cellular ? 'Photos send on any connection' : 'Photos wait for Wi-Fi',
+      trackBg: st.cellular ? '#0f7a7f' : 'rgba(76,79,105,0.28)',
+      knobLeft: st.cellular ? '23px' : '3px',
+      toggleCellular: function () { self.setState({ cellular: !st.cellular }); },
+      showDevice: st.device,
+      openDevice: function () { self.setState({ device: true, composer: null }); },
+      closeDevice: function () { self.setState({ device: false }); },
       onSection: !!sec,
       onEvidence: st.screen === 'evidence',
       headTitle: sec ? sec.n + ' · ' + sec.title : st.screen === 'evidence' ? 'Photos and defects' : 'ME-ITR-A-02',
