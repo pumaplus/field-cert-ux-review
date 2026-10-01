@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sheet B: overview, then one section</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0f7a7f}a:hover{color:#0b5f63}
+button{font-family:inherit;cursor:pointer}
+textarea,input{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #ffffff; color: #4c4f69; font-family: Roboto, system-ui, sans-serif; display: flex; flex-direction: column">
+<div style="flex-shrink: 0; display: flex; align-items: center; gap: 4px; padding: 10px 12px 10px 4px; border-bottom: 1px solid rgba(76,79,105,0.12)">
+<button onClick="{{back}}" aria-label="{{backLabel}}" style="width: 48px; height: 48px; border: none; background: transparent; color: #4c4f69; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0">
+<div style="font-size: 18px; font-weight: 700">{{headTitle}}</div>
+<div style="font-size: 13px; color: #6c6f85">{{headSub}}</div>
+</div>
+<button aria-label="1 waiting to send" style="height: 36px; padding: 0 12px; border-radius: 18px; border: 1px solid #df8e1d; background: #fbeacf; color: #8b5a10; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M5 20h14"></path></svg>1</button>
+</div>
+<sc-if value="{{onOverview}}" hint-placeholder-val="{{ true }}">
+<div style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 12px; background: #e6e9ef">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<div style="font-size: 28px; font-weight: 700">{{answered}} <span style="font-size: 16px; font-weight: 500; color: #6c6f85">of 30 answered</span></div>
+<div style="font-size: 13px; font-weight: 600; color: #0b5f63">Picked up</div>
+</div>
+<div style="height: 8px; border-radius: 4px; background: #ffffff; overflow: hidden"><div style="height: 8px; background: #0f7a7f; width: {{progressPct}}"></div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 700; color: #6c6f85; letter-spacing: 0.04em">SECTIONS</div>
+<sc-for list="{{sections}}" as="sec" hint-placeholder-count="2">
+<button onClick="{{sec.open}}" style="min-height: 72px; border-radius: 12px; border: 1px solid rgba(76,79,105,0.18); background: #ffffff; display: flex; align-items: center; gap: 12px; padding: 12px 14px; text-align: left; color: #4c4f69">
+<span style="width: 32px; height: 32px; border-radius: 16px; background: {{sec.badgeBg}}; color: {{sec.badgeFg}}; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; flex-shrink: 0">{{sec.badge}}</span>
+<span style="display: flex; flex-direction: column; gap: 3px; flex-grow: 1">
+<span style="font-size: 16px; font-weight: 700">{{sec.title}}</span>
+<span style="font-size: 13px; color: {{sec.subColor}}">{{sec.sub}}</span>
+</span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 700; color: #6c6f85; letter-spacing: 0.04em">EVIDENCE</div>
+<button onClick="{{openEvidence}}" style="min-height: 60px; border-radius: 12px; border: 1px solid rgba(76,79,105,0.18); background: #ffffff; display: flex; align-items: center; gap: 12px; padding: 0 14px; text-align: left; color: #4c4f69">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+<span style="flex-grow: 1; font-size: 16px; font-weight: 600">Photos and defects</span>
+<span style="font-size: 14px; color: #6c6f85">{{evidenceSummary}}</span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+<button onClick="{{raiseOnSheet}}" style="min-height: 52px; border-radius: 12px; border: 1px dashed rgba(76,79,105,0.28); background: #ffffff; display: flex; align-items: center; justify-content: center; gap: 8px; color: #4c4f69; font-size: 15px; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9.5 17h-19z"></path><path d="M12 10v4"></path><path d="M12 17.5v.01"></path></svg>Raise a defect against the sheet</button>
+</div>
+</div>
+<div style="flex-shrink: 0; padding: 12px 16px 16px; border-top: 1px solid rgba(76,79,105,0.12); display: flex; flex-direction: column; gap: 6px">
+<button onClick="{{submit}}" aria-disabled="{{notReady}}" style="height: 52px; border-radius: 10px; border: none; background: {{submitBg}}; color: {{submitFg}}; font-size: 16px; font-weight: 700">{{submitLabel}}</button>
+</div>
+</sc-if>
+<sc-if value="{{onSection}}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; overflow-y: auto; padding: 4px 16px 24px; display: flex; flex-direction: column">
+<sc-for list="{{rows}}" as="row" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: {{row.divider}}">
+<div style="display: flex; gap: 10px; font-size: 15px; line-height: 1.35">
+<span style="color: #6c6f85; font-weight: 600; width: 34px; flex-shrink: 0">{{row.no}}</span>
+<span style="font-weight: 500">{{row.label}}</span>
+</div>
+<div style="display: flex; gap: 8px; align-items: center">
+<sc-if value="{{row.isText}}" hint-placeholder-val="{{ false }}">
+<input aria-label="{{row.label}}" defaultValue="{{row.value}}" style="flex-grow: 1; min-width: 0; height: 48px; box-sizing: border-box; border-radius: 8px; background: #eff1f5; border: 1px solid rgba(76,79,105,0.18); padding: 0 12px; font-size: 16px; color: #4c4f69">
+</sc-if>
+<sc-if value="{{row.isChoice}}" hint-placeholder-val="{{ true }}">
+<div role="group" aria-label="{{row.label}}" style="flex-grow: 1; display: flex; gap: 6px">
+<sc-for list="{{row.segs}}" as="s" hint-placeholder-count="3">
+<button onClick="{{s.pick}}" aria-pressed="{{s.on}}" style="flex: 1 1 0; height: 48px; border-radius: 8px; border: 2px solid {{s.bd}}; background: {{s.bg}}; color: {{s.fg}}; font-size: 15px; font-weight: 700">{{s.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+<button onClick="{{row.onCamera}}" aria-label="Photograph a defect on {{row.no}}" style="width: 48px; height: 48px; flex-shrink: 0; border-radius: 8px; border: 1px solid rgba(76,79,105,0.18); background: #ffffff; color: #4c4f69; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></button>
+<button onClick="{{row.onDefect}}" aria-label="{{row.defectAria}}" style="width: 48px; height: 48px; flex-shrink: 0; position: relative; border-radius: 8px; border: 1px solid {{row.defBd}}; background: {{row.defBg}}; color: {{row.defFg}}; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9.5 17h-19z"></path><path d="M12 10v4"></path><path d="M12 17.5v.01"></path></svg>
+<sc-if value="{{row.hasDefects}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; border-radius: 10px; background: #8b5a10; color: #ffffff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{row.defectCount}}</span></sc-if>
+</button>
+</div>
+<sc-for list="{{row.defectList}}" as="d" hint-placeholder-count="0">
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: #fbeacf; color: #8b5a10; font-size: 14px">
+<span style="flex-grow: 1; font-weight: 600">{{d.text}}</span>
+<span>{{d.photoLabel}}</span>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<div style="flex-shrink: 0; display: flex; gap: 10px; padding: 12px 16px 16px; border-top: 1px solid rgba(76,79,105,0.12)">
+<button onClick="{{prev}}" style="flex: 1 1 0; height: 52px; border-radius: 10px; border: 1px solid rgba(76,79,105,0.28); background: #ffffff; color: #4c4f69; font-size: 15px; font-weight: 600">{{prevLabel}}</button>
+<button onClick="{{next}}" style="flex: 1 1 0; height: 52px; border-radius: 10px; border: none; background: #0f7a7f; color: #ffffff; font-size: 15px; font-weight: 700">{{nextLabel}}</button>
+</div>
+</sc-if>
+<sc-if value="{{onEvidence}}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; color: #6c6f85; letter-spacing: 0.04em">PHOTOS OF THE SHEET</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<sc-for list="{{sheetPhotos}}" as="p" hint-placeholder-count="1">
+<div style="width: 80px; height: 80px; border-radius: 8px; background: #d5edee; color: #0f7a7f; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{p.label}}</div>
+</sc-for>
+<button onClick="{{addSheetPhoto}}" style="width: 80px; height: 80px; border-radius: 8px; border: 1px dashed rgba(76,79,105,0.28); background: #ffffff; color: #4c4f69; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 600"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>Photo</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; color: #6c6f85; letter-spacing: 0.04em">DEFECTS</div>
+<sc-for list="{{allDefects}}" as="d" hint-placeholder-count="1">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 10px; border: 1px solid rgba(76,79,105,0.12)">
+<div style="font-size: 13px; color: #6c6f85">{{d.against}}</div>
+<div style="font-size: 15px; font-weight: 600">{{d.text}}</div>
+<div style="font-size: 13px; color: #8b5a10">{{d.photoLabel}} · waiting to send</div>
+</div>
+</sc-for>
+<button onClick="{{raiseOnSheet}}" style="height: 52px; border-radius: 10px; border: 1px solid rgba(76,79,105,0.28); background: #ffffff; color: #4c4f69; font-size: 15px; font-weight: 600">Raise a defect against the sheet</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{showComposer}}" hint-placeholder-val="{{ false }}">
+<div onClick="{{closeComposer}}" style="position: absolute; inset: 0; background: rgba(76,79,105,0.35)"></div>
+<div role="dialog" aria-label="Raise a defect" style="position: absolute; left: 0; right: 0; bottom: 0; background: #ffffff; border-radius: 16px 16px 0 0; padding: 10px 16px 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 -8px 24px rgba(76,79,105,0.18)">
+<div style="width: 40px; height: 4px; border-radius: 2px; background: rgba(76,79,105,0.28); align-self: center"></div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 18px; font-weight: 700">{{composerTitle}}</div>
+<div style="font-size: 14px; color: #6c6f85; line-height: 1.35">{{composerSub}}</div>
+</div>
+<div style="display: flex; gap: 8px">
+<sc-for list="{{composerPhotos}}" as="p" hint-placeholder-count="1">
+<div style="width: 72px; height: 72px; border-radius: 8px; background: #d5edee; color: #0f7a7f; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{p.label}}</div>
+</sc-for>
+<button onClick="{{addComposerPhoto}}" aria-label="Take a photo for this defect" style="width: 72px; height: 72px; border-radius: 8px; border: 1px dashed rgba(76,79,105,0.28); background: #ffffff; color: #4c4f69; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 600"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>Photo</button>
+</div>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 600">What did you find?
+<textarea value="{{draft}}" onChange="{{onDraft}}" rows="3" style="border-radius: 8px; background: #eff1f5; border: 1px solid rgba(76,79,105,0.18); padding: 10px 12px; font-size: 16px; color: #4c4f69; resize: none"></textarea>
+</label>
+<div style="display: flex; gap: 10px">
+<button onClick="{{closeComposer}}" style="height: 52px; padding: 0 18px; border-radius: 10px; border: 1px solid rgba(76,79,105,0.28); background: #ffffff; color: #4c4f69; font-size: 15px; font-weight: 600">Cancel</button>
+<button onClick="{{raise}}" style="flex-grow: 1; height: 52px; border-radius: 10px; border: none; background: {{raiseBg}}; color: #ffffff; font-size: 16px; font-weight: 700">Raise defect</button>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+var S1 = [
+  ['1.1', 'PID No. and Rev.:'], ['1.2', 'Description:'], ['1.3', 'Manufacturer/Date:'], ['1.4', 'Design Code:'],
+  ['1.5', 'Serial No.:'], ['1.6', 'Material of Construction:'], ['1.7', 'Capacity/Dimension:'], ['1.8', 'Empty Weight:'],
+  ['1.9', 'Test Ref./Date:'], ['1.10', 'MAX Allowable Working Pressure:'], ['1.11', 'Duty:'], ['1.12', 'Design Code:']
+];
+var S2 = [
+  ['2.1', 'Check manufacturers test certs/instructions/documents available'],
+  ['2.2', 'Check nameplate in accordance with approved drawings'],
+  ['2.3', 'Check vessel/tank is free from any mechanical damage or dent'],
+  ['2.4', 'Check vessel/tank hold down bolts'],
+  ['2.5', 'Check External painting/fire Proofing coating and ensure they conform to specification'],
+  ['2.6', 'Check internal painting is as per approved specification'],
+  ['2.7', "Check internal fixture against manufacturer's drawing and ensue all fastening bolts have double nuts"],
+  ['2.8', 'Check that earthing is as per approved drawing'],
+  ['2.9', 'Check that level instrument, level gauge, pressure gauge are properly installed and are accessible'],
+  ['2.10', 'Check all tell-tale holes are plug or sealed'],
+  ['2.11', 'Check leak/pressure test has been done and documented'],
+  ['2.12', 'Check that high level and low level switches are installed and at the correct level'],
+  ['2.13', 'Check sightglass is located at the correct location and clearly visible'],
+  ['2.14', 'Check plug and blind on drain valve'],
+  ['2.15', 'Check that overflow and drain are led to drain system'],
+  ['2.16', 'Check relief valve installation, interlocking system and sight pop test certificate'],
+  ['2.17', 'Check manhole and gasket'],
+  ['2.18', 'Preservation reinstated/clearly identified']
+];
+var SECTIONS = [
+  { n: 1, title: 'General information', qs: S1, isText: true },
+  { n: 2, title: 'Installation inspection & testing', qs: S2, isText: false }
+];
+var CHOICES = ['P/L', 'N/A', 'OK'];
+var labelOf = function (no) {
+  var all = S1.concat(S2);
+  for (var i = 0; i < all.length; i++) { if (all[i][0] === no) { return all[i][1]; } }
+  return '';
+};
+var photoLabel = function (n) { return n === 0 ? 'No photo' : n === 1 ? '1 photo' : n + ' photos'; };
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screen: 'overview',
+      answers: { '2.1': 'OK', '2.2': 'OK', '2.3': 'P/L' },
+      defects: [{ key: '2.3', text: 'Dent on shell', photos: 1 }],
+      composer: null,
+      draft: '',
+      sheetPhotos: 1,
+      submitted: false
+    };
+  }
+
+  openComposer(key, photos) { this.setState({ composer: { key: key, photos: photos }, draft: '' }); }
+
+  answeredIn(sec) {
+    var st = this.state;
+    return sec.isText ? sec.qs.length : sec.qs.filter(function (q) { return st.answers[q[0]]; }).length;
+  }
+
+  renderVals() {
+    var st = this.state;
+    var self = this;
+    var answered = SECTIONS.reduce(function (n, s) { return n + self.answeredIn(s); }, 0);
+    var left = 30 - answered;
+    var secIndex = st.screen === 's1' ? 0 : st.screen === 's2' ? 1 : -1;
+    var sec = secIndex >= 0 ? SECTIONS[secIndex] : null;
+    var defectsFor = function (no) { return st.defects.filter(function (d) { return d.key === no; }); };
+
+    var rows = sec ? sec.qs.map(function (q, i) {
+      var no = q[0];
+      var ds = defectsFor(no);
+      var has = ds.length > 0;
+      return {
+        no: no, label: q[1], value: 'T9501-' + no.split('.')[1],
+        isText: sec.isText, isChoice: !sec.isText,
+        divider: i === 0 ? 'none' : '1px solid rgba(76,79,105,0.12)',
+        segs: CHOICES.map(function (c) {
+          var on = st.answers[no] === c;
+          return {
+            label: c, on: on,
+            bg: on ? '#d5edee' : '#eff1f5', fg: on ? '#0b5f63' : '#4c4f69', bd: on ? '#0f7a7f' : 'rgba(76,79,105,0.12)',
+            pick: function () { var a = Object.assign({}, st.answers); a[no] = c; self.setState({ answers: a }); }
+          };
+        }),
+        hasDefects: has, defectCount: ds.length,
+        defectList: ds.map(function (d) { return { text: d.text, photoLabel: photoLabel(d.photos) }; }),
+        defectAria: has ? 'Raise a defect against ' + no + ', ' + ds.length + ' raised' : 'Raise a defect against ' + no,
+        defBg: has ? '#fbeacf' : '#ffffff', defBd: has ? '#df8e1d' : 'rgba(76,79,105,0.18)', defFg: has ? '#8b5a10' : '#4c4f69',
+        onCamera: function () { self.openComposer(no, 1); },
+        onDefect: function () { self.openComposer(no, 0); }
+      };
+    }) : [];
+
+    var sections = SECTIONS.map(function (s) {
+      var a = self.answeredIn(s);
+      var done = a === s.qs.length;
+      var dCount = st.defects.filter(function (d) { return d.key && d.key.split('.')[0] === String(s.n); }).length;
+      return {
+        title: s.title,
+        badge: done ? '✓' : String(s.n),
+        badgeBg: done ? '#0f7a7f' : '#e6e9ef',
+        badgeFg: done ? '#ffffff' : '#4c4f69',
+        sub: a + ' of ' + s.qs.length + (done ? ' · done' : ' · ' + (s.qs.length - a) + ' to go') + (dCount ? ' · ' + dCount + (dCount === 1 ? ' defect' : ' defects') : ''),
+        subColor: dCount ? '#8b5a10' : '#6c6f85',
+        open: function () { self.setState({ screen: 's' + s.n }); }
+      };
+    });
+
+    var c = st.composer;
+    var composerPhotos = [];
+    if (c) { for (var p = 1; p <= c.photos; p++) { composerPhotos.push({ label: 'Photo ' + p }); } }
+    var sheetPhotos = [];
+    for (var k = 1; k <= st.sheetPhotos; k++) { sheetPhotos.push({ label: 'Photo ' + k }); }
+    var photoWord = st.sheetPhotos === 1 ? '1 photo' : st.sheetPhotos + ' photos';
+    var defWord = st.defects.length === 1 ? '1 defect' : st.defects.length + ' defects';
+
+    return {
+      onOverview: st.screen === 'overview',
+      onSection: !!sec,
+      onEvidence: st.screen === 'evidence',
+      headTitle: sec ? sec.n + ' · ' + sec.title : st.screen === 'evidence' ? 'Photos and defects' : 'ME-ITR-A-02',
+      headSub: sec ? self.answeredIn(sec) + ' of ' + sec.qs.length + ' answered' : 'Tank · Mechanical',
+      backLabel: st.screen === 'overview' ? 'Back to Sheets' : 'Back to the sheet overview',
+      back: function () { if (st.screen !== 'overview') { self.setState({ screen: 'overview' }); } },
+      answered: answered,
+      progressPct: Math.round((answered / 30) * 100) + '%',
+      sections: sections,
+      evidenceSummary: photoWord + ' · ' + defWord,
+      openEvidence: function () { self.setState({ screen: 'evidence' }); },
+      notReady: left > 0,
+      submitBg: left > 0 ? '#e6e9ef' : '#0f7a7f',
+      submitFg: left > 0 ? '#6c6f85' : '#ffffff',
+      submitLabel: st.submitted ? 'Submitted · waiting to send' : left > 0 ? 'Submit · ' + left + ' to answer first' : 'Submit sheet',
+      submit: function () { if (left === 0) { self.setState({ submitted: true }); } },
+      rows: rows,
+      prevLabel: secIndex === 0 ? 'Overview' : '‹ Section ' + (secIndex > 0 ? SECTIONS[secIndex - 1].n : ''),
+      nextLabel: secIndex === SECTIONS.length - 1 ? 'Done · overview' : 'Next section ›',
+      prev: function () { self.setState({ screen: secIndex <= 0 ? 'overview' : 's' + SECTIONS[secIndex - 1].n }); },
+      next: function () { self.setState({ screen: secIndex >= SECTIONS.length - 1 ? 'overview' : 's' + SECTIONS[secIndex + 1].n }); },
+      sheetPhotos: sheetPhotos,
+      addSheetPhoto: function () { self.setState({ sheetPhotos: st.sheetPhotos + 1 }); },
+      allDefects: st.defects.map(function (d) {
+        return { against: d.key ? d.key + ' · ' + labelOf(d.key) : 'Against the sheet', text: d.text, photoLabel: photoLabel(d.photos) };
+      }),
+      raiseOnSheet: function () { self.openComposer(null, 0); },
+      showComposer: !!c,
+      closeComposer: function () { self.setState({ composer: null }); },
+      composerTitle: c ? (c.key ? 'Defect on ' + c.key : 'Defect against the sheet') : '',
+      composerSub: c ? (c.key ? labelOf(c.key) : 'ME-ITR-A-02 · Tank') : '',
+      composerPhotos: composerPhotos,
+      addComposerPhoto: function () { self.setState({ composer: { key: c.key, photos: c.photos + 1 } }); },
+      draft: st.draft,
+      onDraft: function (e) { self.setState({ draft: e.target.value }); },
+      raiseBg: st.draft.trim() === '' ? '#8fbfc1' : '#0f7a7f',
+      raise: function () {
+        if (!c || st.draft.trim() === '') { return; }
+        self.setState({ defects: st.defects.concat([{ key: c.key, text: st.draft.trim(), photos: c.photos }]), composer: null, draft: '' });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
