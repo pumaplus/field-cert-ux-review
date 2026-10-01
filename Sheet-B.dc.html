@@ -18,7 +18,12 @@ textarea,input{font-family:inherit}
 </helmet>
 <div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #ffffff; color: #4c4f69; font-family: Roboto, system-ui, sans-serif; display: flex; flex-direction: column">
 <div style="flex-shrink: 0; display: flex; align-items: center; gap: 4px; padding: 10px 12px 10px 4px; border-bottom: 1px solid rgba(76,79,105,0.12)">
+<sc-if value="{{onOverview}}" hint-placeholder-val="{{ true }}">
+<a href="Shell-1.dc.html" aria-label="Back to Sheets" style="width: 48px; height: 48px; color: #4c4f69; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></a>
+</sc-if>
+<sc-if value="{{notOverview}}" hint-placeholder-val="{{ false }}">
 <button onClick="{{back}}" aria-label="{{backLabel}}" style="width: 48px; height: 48px; border: none; background: transparent; color: #4c4f69; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></button>
+</sc-if>
 <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0">
 <div style="font-size: 18px; font-weight: 700">{{headTitle}}</div>
 <div style="font-size: 13px; color: #6c6f85">{{headSub}}</div>
@@ -267,6 +272,7 @@ class Component extends DCLogic {
 
     return {
       onOverview: st.screen === 'overview',
+      notOverview: st.screen !== 'overview',
       onSection: !!sec,
       onEvidence: st.screen === 'evidence',
       headTitle: sec ? sec.n + ' · ' + sec.title : st.screen === 'evidence' ? 'Photos and defects' : 'ME-ITR-A-02',
