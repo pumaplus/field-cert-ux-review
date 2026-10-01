@@ -133,8 +133,9 @@ textarea,input{font-family:inherit}
 </sc-if>
 <sc-if value="{{showDevice}}" hint-placeholder-val="{{ false }}">
 <div onClick="{{closeDevice}}" style="position: absolute; inset: 0; z-index: 10; background: rgba(76,79,105,0.35)"></div>
-<div role="dialog" aria-label="Device and account" style="position: absolute; top: 0; right: 0; bottom: 0; width: 330px; z-index: 11; background: #ffffff; box-shadow: -8px 0 24px rgba(76,79,105,0.22); display: flex; flex-direction: column">
-<div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 8px 8px 16px; border-bottom: 1px solid rgba(76,79,105,0.12)">
+<div role="dialog" aria-label="Device and account" style="position: absolute; left: 0; right: 0; bottom: 0; max-height: 82%; z-index: 11; background: #ffffff; border-radius: 16px 16px 0 0; box-shadow: 0 -8px 24px rgba(76,79,105,0.22); display: flex; flex-direction: column">
+<div style="flex-shrink: 0; width: 40px; height: 4px; border-radius: 2px; background: rgba(76,79,105,0.28); align-self: center; margin-top: 10px"></div>
+<div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 4px 8px 8px 16px; border-bottom: 1px solid rgba(76,79,105,0.12)">
 <div style="font-size: 20px; font-weight: 700">Device</div>
 <button onClick="{{closeDevice}}" aria-label="Close" style="width: 48px; height: 48px; border: none; background: transparent; color: #4c4f69; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg></button>
 </div>
